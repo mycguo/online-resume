@@ -22,6 +22,8 @@ export type Project = {
   visual: "youtube" | "assistant" | "media" | "api" | "events" | "podcast";
   stack: string[];
   url: string;
+  // A heading in the live app used by the scheduled browser check.
+  appHeading: string;
   overview: string;
   features: { title: string; description: string }[];
 };
@@ -37,6 +39,7 @@ export const projects: Project[] = [
     visual: "youtube",
     stack: ["Streamlit", "Gemini", "RAG"],
     url: "https://youtube-videos-rag.streamlit.app/",
+    appHeading: "youtube-rag",
     overview:
       "A video knowledge app with two ways to explore: ask Gemini about a public YouTube video directly, or search an indexed library of recordings. The indexed workflow exposes audio and video search, evidence clips, and citation-oriented answers.",
     features: [
@@ -64,6 +67,7 @@ export const projects: Project[] = [
     visual: "assistant",
     stack: ["Streamlit", "Gemini", "Google Gen AI File API"],
     url: "https://ai-personal-assistant.streamlit.app/",
+    appHeading: "AI Knowledge Assistant",
     overview:
       "An AI assistant that presents a simple question interface for a document knowledge base. The public app identifies Streamlit, Gemini, and the Google Gen AI File API as its stack, bringing document-based question answering into an approachable interface.",
     features: [
@@ -93,6 +97,7 @@ export const projects: Project[] = [
     visual: "media",
     stack: ["Streamlit", "TwelveLabs", "RAG"],
     url: "https://media-rag.streamlit.app/",
+    appHeading: "Ask your audio and video",
     overview:
       "A media library for exploring audio and video with natural-language questions. Upload recordings, index their sound and visual content, and search across your library with evidence clips and citation-oriented answers.",
     features: [
@@ -123,6 +128,7 @@ export const projects: Project[] = [
     visual: "api",
     stack: ["Streamlit", "Stedi Healthcare API", "JSON"],
     url: "https://stedi-api.streamlit.app/",
+    appHeading: "Stedi Healthcare API Request Runner",
     overview:
       "A Streamlit request runner for the Stedi Healthcare API. The interface brings request selection, endpoint details, documentation links, editable JSON, and request execution into one workspace, with single-request and all-request modes.",
     features: [
@@ -153,6 +159,7 @@ export const projects: Project[] = [
     visual: "events",
     stack: ["Streamlit", "Event discovery", "Multi-source aggregation"],
     url: "https://ai-events.streamlit.app/",
+    appHeading: "AI Events Scraper",
     overview:
       "An AI event discovery workspace with separate Bay Area and New York views. Each region offers Lu.ma, Cerebral Valley, Evion, Meetup, and combined-source views, alongside controls for saving, loading, and organizing events.",
     features: [
@@ -182,6 +189,7 @@ export const projects: Project[] = [
     visual: "podcast",
     stack: ["Streamlit", "Audio transcription", "LinkedIn"],
     url: "https://podcast-linkedin.streamlit.app/",
+    appHeading: "AI Podcast to LinkedIn Article",
     overview:
       "A podcast-to-article workflow that presents source selection, audio transcription, article generation, optional image generation, and LinkedIn publishing in one interface. Connecting a LinkedIn account enables source setup and publishing controls.",
     features: [

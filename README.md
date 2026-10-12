@@ -41,7 +41,28 @@ npm run dev
 
 Open <http://127.0.0.1:3000>. To serve the production build, run `npm start`. If port 3000 is already occupied, use `npm start -- --port 3100`.
 
-`npm run check` runs formatting, TypeScript, and production-build checks. Dependencies and fonts are pinned in `package-lock.json`; the fonts are bundled locally and do not require a Google Fonts request during the build.
+`npm run check` runs formatting, offline app-checker tests, TypeScript, and production-build checks. Dependencies and fonts are pinned in `package-lock.json`; the fonts are bundled locally and do not require a Google Fonts request during the build.
+
+## Daily Streamlit visits
+
+The **Daily Streamlit app checks** GitHub Actions workflow runs daily at **6 PM Pacific** using `America/Los_Angeles`, so the local time follows daylight saving changes. It also supports **Actions → Daily Streamlit app checks → Run workflow** for an immediate run. The workflow runs independently of Vercel and your computer.
+
+The checker reads the six app URLs and their `appHeading` markers from `src/data/portfolio.ts`. It opens each app in Chromium, waits for the expected live heading inside Streamlit's iframe, and clicks only Streamlit's **Yes, get this app back up!** button if the app is sleeping. Visits use fresh browser contexts. The checker does not submit forms, connect accounts, call healthcare APIs, generate articles, or run event scrapes. A successful HTTP response alone is not a passing check.
+
+Two apps are checked at a time, with one retry per failed app. Results appear in the workflow run summary and a 14-day JSON/Markdown artifact; page contents, screenshots, cookies, and form values are not saved. A failed app makes the workflow fail while the other apps are still checked.
+
+For manual execution from a development environment:
+
+```sh
+npx playwright install chromium
+npm run apps:check
+```
+
+To list configured targets without visiting them, run `npm run apps:check -- --list`. Run `npm run test:app-checks` for the offline checker tests.
+
+**A daily visit does not prevent all sleeping.** Streamlit Community Cloud sleeps apps after 12 hours without traffic, so apps can still sleep between evening runs. GitHub schedules can be delayed or dropped, and public repository schedules are disabled after 60 days without repository activity. Re-enable a disabled workflow from Actions when needed.
+
+Official references: [Streamlit app hibernation](https://docs.streamlit.io/deploy/streamlit-community-cloud/manage-your-app#app-hibernation), [GitHub scheduled workflows and time zones](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#schedule), and [Playwright on GitHub Actions](https://playwright.dev/docs/ci-intro).
 
 ## Customize your content
 
