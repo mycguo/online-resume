@@ -1,10 +1,12 @@
 # Charles’s Studio portfolio
 
-A production-ready Next.js portfolio with the selected Studio design, responsive project cards, searchable projects, and individual project pages. The public site contains six real projects:
+A production-ready Next.js portfolio with the selected Studio design, responsive project cards, searchable projects, and individual project pages. The public site contains eight real projects, with JobOfferMaster first:
 
+- [JobOfferMaster](https://joboffermaster.com/)
 - [YouTube RAG](https://youtube-videos-rag.streamlit.app/)
 - [AI Knowledge Assistant](https://ai-personal-assistant.streamlit.app/)
 - [Media RAG](https://media-rag.streamlit.app/)
+- [Ask My Photo](https://ask-my-photo.streamlit.app/)
 - [Stedi API Request Runner](https://stedi-api.streamlit.app/)
 - [AI Events](https://ai-events.streamlit.app/)
 - [Podcast to LinkedIn](https://podcast-linkedin.streamlit.app/)
@@ -47,7 +49,7 @@ Open <http://127.0.0.1:3000>. To serve the production build, run `npm start`. If
 
 The **Daily Streamlit app checks** GitHub Actions workflow runs daily at **6 PM Pacific** using `America/Los_Angeles`, so the local time follows daylight saving changes. It also supports **Actions → Daily Streamlit app checks → Run workflow** for an immediate run. The workflow runs independently of Vercel and your computer.
 
-The checker reads the six app URLs and their `appHeading` markers from `src/data/portfolio.ts`. It opens each app in Chromium, waits for the expected live heading inside Streamlit's iframe, and clicks only Streamlit's **Yes, get this app back up!** button if the app is sleeping. Visits use fresh browser contexts. The checker does not submit forms, connect accounts, call healthcare APIs, generate articles, or run event scrapes. A successful HTTP response alone is not a passing check.
+The checker reads the seven Streamlit app URLs and their `appHeading` markers from `src/data/portfolio.ts`, including Ask My Photo. Projects hosted elsewhere, such as JobOfferMaster, are excluded from this Streamlit-specific workflow. It opens each app in Chromium, waits for the expected live heading inside Streamlit's iframe, and clicks only Streamlit's **Yes, get this app back up!** button if the app is sleeping. Visits use fresh browser contexts. The checker does not submit forms, connect accounts, call healthcare APIs, generate articles, or run event scrapes. A successful HTTP response alone is not a passing check.
 
 Two apps are checked at a time, with one retry per failed app. Results appear in the workflow run summary and a 14-day JSON/Markdown artifact; page contents, screenshots, cookies, and form values are not saved. A failed app makes the workflow fail while the other apps are still checked.
 
@@ -66,7 +68,7 @@ Official references: [Streamlit app hibernation](https://docs.streamlit.io/deplo
 
 ## Customize your content
 
-Edit `src/data/portfolio.ts` to update your name, bio, public contact links, and projects. Empty contact fields stay hidden. Add a project using the existing `Project` shape; a detail page, project count, categories, and sitemap entry are generated from that data.
+Edit `src/data/portfolio.ts` to update your name, bio, public contact links, and projects. Empty contact fields stay hidden. Add a project using the existing `Project` shape; a detail page, project count, categories, and sitemap entry are generated from that data. The array order controls the display order. Streamlit projects also need an `appHeading` matching their public interface for the daily checker; other projects do not.
 
 Preview artwork is original illustrative HTML/CSS. It is labeled as an illustrative preview and is not a screenshot of the linked application.
 
@@ -83,5 +85,9 @@ Project descriptions were checked against their public interfaces on October 11,
 No media or documents were uploaded, AI questions submitted, healthcare API requests executed, LinkedIn accounts connected, content published, event scrapes triggered, or administration pages accessed. Model outputs and private implementations have not been audited. The AI Knowledge Assistant entry avoids claiming a specific deployed model version because its public page mentions a fallback.
 
 ## Validation
+
+JobOfferMaster and Ask My Photo were added after inspecting their public interfaces. JobOfferMaster is the first item in the collection. Ask My Photo is included in the daily Streamlit visits, while JobOfferMaster is excluded from that Streamlit-specific check. Both use original illustrative artwork rather than screenshots of users' data.
+
+For the eight-project update, formatting, nine offline checker tests, TypeScript, and the production build passed. Both new project pages, live links, and illustrations were checked on desktop and at 320 px. Search finds Ask My Photo, and both new illustrations fit their card and detail-page frames without horizontal overflow.
 
 Verified locally on October 11, 2026: clean locked dependency installation, formatting, TypeScript, and production build passed. All six project pages and their live links were checked. Category filters, search, empty-result recovery, and keyboard shortcuts passed browser checks. Desktop, 390 px mobile, and 320 px mobile layouts were reviewed; the checked layouts have no horizontal overflow, and all six illustrations fit their frames at 320 px. The old template/demo routes return 404. Robots metadata, sitemap response, share image, and public-domain selection were also checked.

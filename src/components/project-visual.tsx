@@ -2,6 +2,8 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
+  BriefcaseBusiness,
+  Camera,
   Check,
   FileText,
   Play,
@@ -18,6 +20,89 @@ export function ProjectVisual({ project, large = false }: { project: Project; la
       role="img"
     >
       <span className="visual-caption">ILLUSTRATIVE PREVIEW</span>
+      {project.visual === "jobs" && (
+        <div className="mock-window jobs-window">
+          <div className="mock-top">
+            <div className="mock-brand">
+              <BriefcaseBusiness size={15} /> joboffermaster
+            </div>
+            <span className="mock-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+          </div>
+          <div className="jobs-content">
+            <span className="mock-eyebrow">FROM SAVE TO INTERVIEW</span>
+            <h4>Your next step, a little clearer.</h4>
+            <div className="jobs-steps">
+              <div>
+                <span>01</span>
+                <div>
+                  Save the role<small>Keep the details together</small>
+                </div>
+                <Check size={13} />
+              </div>
+              <div>
+                <span>02</span>
+                <div>
+                  Prepare your application<small>Resume · cover letter · practice</small>
+                </div>
+                <FileText size={13} />
+              </div>
+              <div>
+                <span>03</span>
+                <div>
+                  Keep the conversation going<small>Interviews · notes · follow-ups</small>
+                </div>
+                <ArrowUpRight size={13} />
+              </div>
+            </div>
+            <div className="jobs-footer">
+              <span>One clear next step.</span>
+              <span>Chrome extension</span>
+            </div>
+          </div>
+        </div>
+      )}
+      {project.visual === "photo" && (
+        <div className="mock-window photo-window">
+          <div className="mock-top">
+            <div className="mock-brand">
+              <Camera size={15} /> ask my photo
+            </div>
+            <span className="mock-dots">
+              <i />
+              <i />
+              <i />
+            </span>
+          </div>
+          <div className="photo-content">
+            <span className="mock-eyebrow">A LITTLE CURIOSITY. A SAVED MEMORY.</span>
+            <h4>See the story in your photos.</h4>
+            <div className="photo-layout">
+              <div className="photo-memory" aria-hidden="true">
+                <span className="photo-sun" />
+                <span className="photo-hill photo-hill-back" />
+                <span className="photo-hill photo-hill-front" />
+                <span className="photo-memory-label">a moment, remembered</span>
+              </div>
+              <div className="photo-conversation">
+                <Sparkles size={19} />
+                <span>What would you like to find?</span>
+                <div className="photo-search">
+                  Ask your photos
+                  <ArrowUpRight size={11} />
+                </div>
+                <small>Search · ask · explore</small>
+              </div>
+            </div>
+            <div className="photo-evidence">
+              <Check size={11} /> Follow the evidence photos
+            </div>
+          </div>
+        </div>
+      )}
       {project.visual === "youtube" && (
         <div className="mock-window video-window">
           <div className="mock-top">

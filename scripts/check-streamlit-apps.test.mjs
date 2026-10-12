@@ -4,11 +4,13 @@ import { projects } from "../src/data/portfolio.ts";
 import {
   checkProject,
   checkProjects,
+  getStreamlitProjects,
   validateProjects,
   visitProject,
 } from "./check-streamlit-apps.mjs";
 
-const project = projects[0];
+const apps = getStreamlitProjects(projects);
+const project = apps[0];
 
 function fakeFrame(state) {
   return {
@@ -43,7 +45,7 @@ function clockOptions() {
 }
 
 test("all configured apps have valid, unique public URLs and ready headings", () => {
-  assert.ok(validateProjects(projects).length > 0);
+  assert.ok(validateProjects(apps).length > 0);
   for (const invalid of [
     { ...project, url: "https://example.com/" },
     { ...project, url: project.url + "?token=private" },
@@ -56,6 +58,16 @@ test("all configured apps have valid, unique public URLs and ready headings", ()
 
 test("HTTP 200 without the rendered app times out instead of passing", async () => {
   await assert.rejects(visitProject(fakePage({}), project, clockOptions()), /app-not-ready/);
+});
+
+test("daily checks include Ask My Photo and exclude non-Streamlit portfolio projects", () => {
+  assert.ok(apps.some((app) => app.url === "https://ask-my-photo.streamlit.app/"));
+  assert.ok(projects.some((entry) => entry.slug === "joboffermaster"));
+  assert.equal(
+    apps.some((app) => app.slug === "joboffermaster"),
+    false,
+  );
+  assert.ok(apps.every((app) => new URL(app.url).hostname.endsWith(".streamlit.app")));
 });
 
 test("a sleeping app is woken and verified before passing", async () => {
@@ -114,16 +126,16 @@ test("one broken app does not stop the other apps and errors omit private detail
   const browser = {
     newContext: async () => ({ newPage: async () => ({}), close: async () => {} }),
   };
-  const results = await checkProjects(browser, projects, {
+  const results = await checkProjects(browser, apps, {
     pause: async () => {},
     visit: async (_page, target) => {
       if (target.slug === project.slug) throw new Error("private server detail");
       return { woke: false };
     },
   });
-  assert.equal(results.length, projects.length);
+  assert.equal(results.length, apps.length);
   assert.equal(results[0].status, "failed");
   assert.equal(results[0].error, "navigation-or-browser-error");
-  assert.equal(results.filter((result) => result.status === "ready").length, projects.length - 1);
+  assert.equal(results.filter((result) => result.status === "ready").length, apps.length - 1);
   assert.equal(JSON.stringify(results).includes("private server detail"), false);
 });
