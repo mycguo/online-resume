@@ -60,6 +60,37 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "media-rag",
+    title: "Media RAG",
+    category: "AI & ML",
+    summary:
+      "Ask your audio and video. Search recordings and explore answers grounded in the original media.",
+    label: "Every recording has a story",
+    visual: "media",
+    stack: ["Streamlit", "TwelveLabs", "RAG"],
+    url: "https://media-rag.streamlit.app/",
+    appHeading: "Ask your audio and video",
+    overview:
+      "A media library for exploring audio and video with natural-language questions. Upload recordings, index their sound and visual content, and search across your library with evidence clips and citation-oriented answers.",
+    features: [
+      {
+        title: "Add a recording",
+        description:
+          "Upload audio or video to index its sound and visual content through TwelveLabs.",
+      },
+      {
+        title: "Find the right moment",
+        description:
+          "Search all ready recordings or narrow the search to specific recordings and audio or video content.",
+      },
+      {
+        title: "Ask and follow the evidence",
+        description:
+          "Ask for cited answers, use search-only mode, and adjust evidence clips and minimum similarity.",
+      },
+    ],
+  },
+  {
     slug: "youtube-rag",
     title: "YouTube RAG",
     category: "AI & ML",
@@ -114,37 +145,6 @@ export const projects: Project[] = [
         title: "Keep it approachable",
         description:
           "A focused Streamlit interface puts the question and knowledge base at the center.",
-      },
-    ],
-  },
-  {
-    slug: "media-rag",
-    title: "Media RAG",
-    category: "AI & ML",
-    summary:
-      "Ask your audio and video. Search recordings and explore answers grounded in the original media.",
-    label: "Every recording has a story",
-    visual: "media",
-    stack: ["Streamlit", "TwelveLabs", "RAG"],
-    url: "https://media-rag.streamlit.app/",
-    appHeading: "Ask your audio and video",
-    overview:
-      "A media library for exploring audio and video with natural-language questions. Upload recordings, index their sound and visual content, and search across your library with evidence clips and citation-oriented answers.",
-    features: [
-      {
-        title: "Add a recording",
-        description:
-          "Upload audio or video to index its sound and visual content through TwelveLabs.",
-      },
-      {
-        title: "Find the right moment",
-        description:
-          "Search all ready recordings or narrow the search to specific recordings and audio or video content.",
-      },
-      {
-        title: "Ask and follow the evidence",
-        description:
-          "Ask for cited answers, use search-only mode, and adjust evidence clips and minimum similarity.",
       },
     ],
   },
