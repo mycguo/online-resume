@@ -19,16 +19,46 @@ export type Project = {
   category: Category;
   summary: string;
   label: string;
-  visual: "youtube" | "assistant" | "media" | "api" | "events" | "podcast";
+  visual: "jobs" | "youtube" | "assistant" | "media" | "photo" | "api" | "events" | "podcast";
   stack: string[];
   url: string;
-  // A heading in the live app used by the scheduled browser check.
-  appHeading: string;
+  // Required for Streamlit apps included in the scheduled browser check.
+  appHeading?: string;
   overview: string;
   features: { title: string; description: string }[];
 };
 
 export const projects: Project[] = [
+  {
+    slug: "joboffermaster",
+    title: "JobOfferMaster",
+    category: "Productivity",
+    summary:
+      "A calmer job search. Save roles, prepare applications, and keep interviews and follow-ups together.",
+    label: "Every application. One clear next step.",
+    visual: "jobs",
+    stack: ["Chrome extension", "AI assistance", "Application tracking"],
+    url: "https://joboffermaster.com/",
+    overview:
+      "A job-search workspace designed for people starting their first job search. Save roles, reuse application details through a Chrome extension, and keep interview notes and follow-ups together. A role preparation workflow helps draft a tailored resume, cover letter, and interview practice questions.",
+    features: [
+      {
+        title: "Save and organize roles",
+        description:
+          "Save LinkedIn jobs with the Chrome extension and keep job descriptions, application details, interviews, and notes in one place.",
+      },
+      {
+        title: "Prepare for the role",
+        description:
+          "Use a saved job and your resume to draft a tailored resume, cover letter, and interview questions, then review the files in one ZIP package.",
+      },
+      {
+        title: "Apply and follow up",
+        description:
+          "Reuse profile details on application forms and ask Private AI about saved applications, interview dates, notes, and job descriptions.",
+      },
+    ],
+  },
   {
     slug: "youtube-rag",
     title: "YouTube RAG",
@@ -115,6 +145,37 @@ export const projects: Project[] = [
         title: "Ask and follow the evidence",
         description:
           "Ask for cited answers, use search-only mode, and adjust evidence clips and minimum similarity.",
+      },
+    ],
+  },
+  {
+    slug: "ask-my-photo",
+    title: "Ask My Photo",
+    category: "AI & ML",
+    summary:
+      "Find a memory. Search your photo library and ask questions with evidence photos behind the answer.",
+    label: "A new way to explore your memories",
+    visual: "photo",
+    stack: ["Streamlit", "Photo search", "AI question answering"],
+    url: "https://ask-my-photo.streamlit.app/",
+    appHeading: "Ask My Photo",
+    overview:
+      "A photo-library app for finding images and asking questions about their contents. Add photos to your library, search across all or selected photos, and choose between finding photos or asking for answers with photo evidence. Evidence count and minimum similarity controls help focus the search.",
+    features: [
+      {
+        title: "Build a photo library",
+        description:
+          "Use the Add photos and Photo library views to collect and revisit your images.",
+      },
+      {
+        title: "Find the photo",
+        description:
+          "Describe what you want to find, search all or selected photos, and adjust the minimum similarity.",
+      },
+      {
+        title: "Ask and explore the evidence",
+        description:
+          "Ask a question about your photos, choose the evidence photo count, and use the Ask & cite workflow.",
       },
     ],
   },

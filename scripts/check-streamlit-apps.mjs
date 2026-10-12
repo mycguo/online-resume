@@ -6,6 +6,12 @@ import { projects } from "../src/data/portfolio.ts";
 
 const wakeButtonName = /^Yes, get this app back up!$/i;
 
+export function getStreamlitProjects(entries) {
+  return validateProjects(
+    entries.filter((project) => new URL(project.url).hostname.endsWith(".streamlit.app")),
+  );
+}
+
 export function validateProjects(entries) {
   if (!entries.length) throw new Error("No apps configured.");
   const urls = new Set();
@@ -147,7 +153,7 @@ export async function checkProjects(browser, entries, options = {}) {
 const escapeCell = (text) => String(text).replace(/[|\r\n]/g, " ");
 
 async function main() {
-  const apps = validateProjects(projects);
+  const apps = getStreamlitProjects(projects);
   if (process.argv.includes("--list")) {
     console.log(
       JSON.stringify(apps.map(({ title, url, appHeading }) => ({ title, url, appHeading }))),
