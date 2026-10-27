@@ -169,9 +169,7 @@ async function main() {
   }
   const failed = results.filter((result) => result.status === "failed");
   const summary = [
-    "## Daily Streamlit app checks",
-    "",
-    "Schedule: daily at 6 PM America/Los_Angeles (Pacific time).",
+    "## Streamlit app checks",
     "",
     "| App | Result | Wake button used | Attempts |",
     "| --- | --- | --- | --- |",
@@ -179,8 +177,6 @@ async function main() {
       (result) =>
         `| ${escapeCell(result.title)} | ${result.status}${result.error ? ` (${result.error})` : ""} | ${result.woke ? "Yes" : "No"} | ${result.attempts} |`,
     ),
-    "",
-    "A daily visit does not prevent Streamlit's 12-hour inactivity sleep between runs.",
     "",
   ].join("\n");
   await mkdir("app-check-results", { recursive: true });
