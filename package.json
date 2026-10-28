@@ -2,15 +2,16 @@
   "name": "online-resume",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.26.2",
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
     "typecheck": "next typegen && tsc --noEmit",
-    "format:check": "prettier --check src scripts next.config.ts tsconfig.json package.json vercel.json README.md",
+    "format:check": "prettier --check src scripts next.config.ts tsconfig.json package.json pnpm-lock.yaml vercel.json README.md",
     "apps:check": "node --experimental-strip-types scripts/check-streamlit-apps.mjs",
     "test:app-checks": "node --experimental-strip-types --test scripts/check-streamlit-apps.test.mjs",
-    "check": "npm run format:check && npm run test:app-checks && npm run typecheck && npm run build"
+    "check": "pnpm run format:check && pnpm run test:app-checks && pnpm run typecheck && pnpm run build"
   },
   "engines": {
     "node": "22.x"

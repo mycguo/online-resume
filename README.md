@@ -16,10 +16,10 @@ The demo concepts and design comparison pages have been removed. Studio is the o
 ## Deploy immediately from this folder
 
 ```sh
-npx vercel@latest --prod
+pnpm dlx vercel@latest --prod
 ```
 
-Sign in if prompted, select your Vercel account/team, and create or link a project. Use the current directory as the project root. The configuration selects Next.js, installs dependencies with `npm ci`, builds with `npm run build`, and pins Node.js to 22.x. Vercel builds from the local source, so this method does not require pushing to GitHub first.
+Set up pnpm as described below, then sign in if prompted, select your Vercel account/team, and create or link a project. Use the current directory as the project root. The configuration selects Next.js, installs dependencies with `corepack pnpm install --frozen-lockfile`, builds with `corepack pnpm run build`, and pins Node.js to 22.x. Corepack reads the exact pnpm version from `package.json`. Vercel builds from the local source, so this method does not require pushing to GitHub first.
 
 No API keys, database, or user-configured environment variables are required. The portfolio links to your Streamlit applications; their backends continue to run on Streamlit.
 
@@ -33,17 +33,20 @@ The existing `online-resume` Vercel project is connected to `mycguo/online-resum
 
 ## Run and verify locally
 
-Requires Node.js 22.x. Use `nvm use` if you have nvm installed.
+Requires Node.js 22.x and pnpm 10.26.2, pinned in the `packageManager` field. Use `nvm use` if you have nvm installed. Enable the Corepack shims included with Node.js 22, then install from the committed lockfile:
 
 ```sh
-npm ci
-npm run check
-npm run dev
+corepack enable
+pnpm install --frozen-lockfile
+pnpm run check
+pnpm run dev
 ```
 
-Open <http://127.0.0.1:3000>. To serve the production build, run `npm start`. If port 3000 is already occupied, use `npm start -- --port 3100`.
+If you prefer not to enable shims, prefix pnpm commands with `corepack`, for example `corepack pnpm install --frozen-lockfile`.
 
-`npm run check` runs formatting, offline app-checker tests, TypeScript, and production-build checks. Dependencies and fonts are pinned in `package-lock.json`; the fonts are bundled locally and do not require a Google Fonts request during the build.
+Open <http://127.0.0.1:3000>. To serve the production build, run `pnpm start`. If port 3000 is already occupied, use `pnpm start --port 3100`.
+
+`pnpm run check` runs formatting, offline app-checker tests, TypeScript, and production-build checks. Dependencies and fonts are pinned in `pnpm-lock.yaml`; the fonts are bundled locally and do not require a Google Fonts request during the build. When switching an existing checkout from npm, remove its old `node_modules` directory before installing with pnpm. Commit `pnpm-lock.yaml` when changing dependencies; use `pnpm add` or `pnpm remove` to keep it in sync with `package.json`.
 
 ## Manual Streamlit checks
 
@@ -56,11 +59,11 @@ Two apps are checked at a time, with one retry per failed app. JSON and Markdown
 For manual execution from a development environment:
 
 ```sh
-npx playwright install chromium
-npm run apps:check
+pnpm exec playwright install chromium
+pnpm run apps:check
 ```
 
-To list configured targets without visiting them, run `npm run apps:check -- --list`. Run `npm run test:app-checks` for the offline checker tests.
+To list configured targets without visiting them, run `pnpm run apps:check --list`. Run `pnpm run test:app-checks` for the offline checker tests.
 
 ## Customize your content
 
